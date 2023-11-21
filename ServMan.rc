@@ -1,0 +1,29 @@
+1 VERSIONINFO
+FILEVERSION 0,0,1,0
+PRODUCTVERSION 0,0,1,0
+FILEOS 0x4
+FILETYPE 1
+{
+  BLOCK "StringFileInfo"
+  {
+    BLOCK "040904E4"
+    {
+      VALUE "CompanyName", "Bill Stewart (bstewart at iname.com)"
+      VALUE "FileDescription", "ServMan.exe"
+      VALUE "FileVersion", "0.0.1.0"
+      VALUE "InternalName", "service.exe"
+      VALUE "LegalCopyright", "(C) 2023 by Bill Stewart (bstewart at iname.com)"
+      VALUE "OriginalFilename", "ServMan.exe"
+      VALUE "ProductName", "ServMan.exe"
+      VALUE "ProductVersion", "0.0.1.0"
+    }
+  }
+
+  BLOCK "VarFileInfo"
+  {
+    VALUE "Translation", 0x0409, 0x04E4
+  }
+}
+
+APPICON ICON "ServMan.ico"
+MAINICON ICON "ServMan.ico"
