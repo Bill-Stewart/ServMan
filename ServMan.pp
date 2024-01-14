@@ -32,7 +32,7 @@ uses
 
 const
   PROGRAM_NAME = 'ServMan';
-  PROGRAM_COPYRIGHT = 'Copyright (C) 2023 by Bill Stewart';
+  PROGRAM_COPYRIGHT = 'Copyright (C) 2023-2024 by Bill Stewart';
   SERVICE_TIMEOUT_DEFAULT_SECONDS = 30;
   SERVICE_STATE_BASE_EXITCODE = 900;
   CMD_NONE = $00;
@@ -58,7 +58,6 @@ var
   Opts: array[1..10] of TOption;
   I: Integer;
   Opt: Char;
-  LongOptName: string;
 begin
   with Opts[1] do
   begin
@@ -114,7 +113,7 @@ begin
     Name := 'timeout';
     Has_arg := Required_Argument;
     Flag := nil;
-    Value := #0;
+    Value := 't';
   end;
   with Opts[9] do
   begin
@@ -138,28 +137,29 @@ begin
   ServiceName := '';
   OptErr := false;
   repeat
-    Opt := GetLongOpts('', @Opts[1], I);
-    if Opt = #0 then
-    begin
-      LongOptName := Opts[I].Name;
-      case LongOptName of
-        'help': Help := true;
-        'enum': Flags := Flags or CMD_ENUM;
-        'exists': Flags := Flags or CMD_EXISTS;
-        'state': Flags := Flags or CMD_STATE;
-        'status': Flags := Flags or CMD_STATE;
-        'start': Flags := Flags or CMD_START;
-        'stop': Flags := Flags or CMD_STOP;
-        'quiet': Quiet := true;
-        'timeout':
+    Opt := GetLongOpts('t:', @Opts[1], I);
+    case Opt of
+      't':
+      begin
+        if StrToInt(OptArg, Timeout) then
         begin
-          if StrToInt(OptArg, Timeout) then
-          begin
-            if (Timeout < 0) or (Timeout > SERVICE_TIMEOUT_MAX_SECONDS) then
-              Error := ERROR_INVALID_PARAMETER;
-          end
-          else
+          if (Timeout < 0) or (Timeout > SERVICE_TIMEOUT_MAX_SECONDS) then
             Error := ERROR_INVALID_PARAMETER;
+        end
+        else
+          Error := ERROR_INVALID_PARAMETER;
+      end;
+      #0:
+      begin
+        case Opts[I].Name of
+          'help': Help := true;
+          'enum': Flags := Flags or CMD_ENUM;
+          'exists': Flags := Flags or CMD_EXISTS;
+          'state': Flags := Flags or CMD_STATE;
+          'status': Flags := Flags or CMD_STATE;
+          'start': Flags := Flags or CMD_START;
+          'stop': Flags := Flags or CMD_STOP;
+          'quiet': Quiet := true;
         end;
       end;
     end;

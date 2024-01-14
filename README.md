@@ -129,9 +129,13 @@ Exit code 5 is common if the logged on user isn't running as administrator.
 
 4. `ServMan "Bluetooth Support Service" --stop --timeout 10`
 
-   **ServMan** will send the stop signal to the specified service, and will wait for up to 10 seconds for the service to stop. If the service reports that it is stopped within that period of time, **ServMan** will return an exit code of 0; otherwise, will return an exit code of 1053.
+   **ServMan** will send the stop signal to the specified service, and will wait for up to 10 seconds for the service to stop. If the service reports that it is stopped within that period of time, **ServMan** will return an exit code of 0; otherwise, it will return an exit code of 1053.
 
 ## VERSION HISTORY
+
+### 0.0.2 (204-001-14)
+
+* Fixed crash if `--timeout` parameter missing an argument.
 
 ### 0.0.1 (2023-11-21)
 
